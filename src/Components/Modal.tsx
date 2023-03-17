@@ -1,49 +1,45 @@
-import { Fragment, useState, useMemo } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Switch,
-} from '@material-tailwind/react';
+import { Fragment, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
 
-type Country = 'Denmark' | 'Sweden' | 'Norway';
+const countries = ['denmark', 'sweden', 'norway'] as const;
+type Country = typeof countries[number];
 
 export default function Modal() {
-  const [open, setOpen] = useState(false);
-  const [isTest, setIsTest] = useState(true);
-  const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
-  // const { environment } = useParams();
+  let [searchParams, setSearchParams] = useSearchParams();
 
-  const navigate = useNavigate();
+  const environment = searchParams.get('environment') ?? 'test';
+  const enabledCountries = countries.filter(
+    (country) => searchParams.get(country) !== null
+  );
+
+  const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(!open);
 
-  const countries: Country[] = ['Denmark', 'Sweden', 'Norway'];
-
-  // Render login buttons for selected countries
-  function handleSelection(country: Country) {
-    setSelectedCountries((prevState) => {
-      if (prevState.includes(country)) {
-        return prevState.filter((c) => c !== country);
-      } else {
-        return [...prevState, country];
-      }
-    });
-  }
-
-  function handleConfirm() {
-    const sortedCountries = selectedCountries.slice().sort();
-    const countriesParam = sortedCountries.join('&').toLowerCase();
-    const envParam = isTest ? 'test' : 'prod';
-    navigate(`login/${envParam}/${countriesParam}`);
-    handleOpen();
-  }
-
   const handleToggleEnv = () => {
-    setIsTest(!isTest);
+    setSearchParams((params) => {
+      params.set(
+        'environment',
+        params.get('environment') === 'test' ? 'production' : 'test'
+      );
+      return params;
+    });
   };
+
+  function handleCountry(country: Country) {
+    if (enabledCountries.includes(country)) {
+      setSearchParams((params) => {
+        params.delete(country);
+        return params;
+      });
+    } else {
+      setSearchParams((params) => {
+        params.set(country, '');
+        return params;
+      });
+    }
+  }
 
   return (
     <Fragment>
@@ -62,20 +58,19 @@ export default function Modal() {
         handler={handleOpen}
         className="bg-background w-96 lg:w-full"
       >
-        <DialogHeader className="text-darkText">
-          Login with selected eIDs
-        </DialogHeader>
-        <DialogBody divider>
+        <DialogBody>
           <Switch
             id="env-toggle"
-            label="Switch to Production"
+            label="Production"
             className="font-semibold text-darkText"
             color="indigo"
-            checked={!isTest}
+            checked={environment == 'production'}
             onChange={handleToggleEnv}
           />
           <div className="checkbox-wrapper flex flex-col m-2">
             {countries.map((country) => {
+              const countryName =
+                country.charAt(0).toUpperCase() + country.slice(1);
               return (
                 <label
                   className="m-2 font-semibold text-darkText h-6 text-l"
@@ -84,30 +79,17 @@ export default function Modal() {
                   <input
                     type="checkbox"
                     className="w-5"
-                    checked={selectedCountries.includes(country as Country)}
+                    checked={enabledCountries.includes(country)}
                     onChange={() => {
-                      handleSelection(country as Country);
+                      handleCountry(country);
                     }}
                   />
-                  <span className="pl-2 pb-4">{country}</span>
+                  <span className="pl-2 pb-4">{countryName}</span>
                 </label>
               );
             })}
           </div>
         </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleConfirm}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
       </Dialog>
     </Fragment>
   );

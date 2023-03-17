@@ -1,38 +1,33 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AuthMethodSelector } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
 import Hero from './Hero';
 
 function Login() {
-  const [acrValues, setAcrValues] = useState<string[]>([]);
+  const location = useLocation();
+  const search = useMemo(
+    () => new URLSearchParams(location.search),
+    [location]
+  );
 
-  const { country } = useParams();
+  const acrValues = useMemo(() => {
+    const acrValues: string[] = [];
 
-  useEffect(() => {
-    try {
-      const acrValuesArr: string[] = [];
-
-      if (country?.includes('denmark')) {
-        acrValuesArr.push('urn:grn:authn:dk:mitid:low');
-      }
-
-      if (country?.includes('sweden')) {
-        acrValuesArr.push('urn:grn:authn:se:bankid:same-device');
-      }
-
-      if (country?.includes('norway')) {
-        acrValuesArr.push('urn:grn:authn:no:bankid:substantial');
-      }
-
-      setAcrValues(acrValuesArr);
-    } catch (error) {
-      console.log(error);
+    if (search.get('denmark') !== null) {
+      acrValues.push('urn:grn:authn:dk:mitid:low');
     }
-  }, [country]);
 
-  const { environment } = useParams();
-  console.log('environment from Login', environment);
+    if (search.get('sweden') !== null) {
+      acrValues.push('urn:grn:authn:se:bankid:same-device');
+    }
+
+    if (search.get('norway') !== null) {
+      acrValues.push('urn:grn:authn:no:bankid:substantial');
+    }
+
+    return acrValues;
+  }, [search]);
 
   return (
     <>
@@ -42,7 +37,9 @@ function Login() {
           Login to Cool Energy to see your consumption data
         </h1>
         <div className="Auth-container">
-          <AuthMethodSelector acrValues={acrValues} />
+          <AuthMethodSelector
+            acrValues={acrValues.length ? acrValues : undefined}
+          />
         </div>
       </div>
     </>

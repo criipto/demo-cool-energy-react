@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useCriiptoVerify } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
-import Home from './Components/Home';
 import Dashboard from './Components/Dashboard';
 import Header from './Components/Header';
 import Login from './Components/Login';
@@ -10,9 +9,8 @@ import './App.css';
 function App() {
   const { claims, logout } = useCriiptoVerify();
 
-  // TODO: add prod option
   const handleLogout = () => {
-    logout({ redirectUri: 'http://localhost:3000' });
+    logout({ redirectUri: window.location.origin + '/' });
   };
 
   return (
@@ -23,13 +21,9 @@ function App() {
         {claims ? (
           <Route index element={<Navigate to="/dashboard" />} />
         ) : (
-          <Route index element={<Navigate to="/login/test/denmark" />} />
+          <Route index element={<Navigate to="/login" />} />
         )}
-        <Route path="login/:environment/:country" element={<Login />} />
-        <Route
-          path="login/:environment/"
-          element={<Navigate to="/login/test/denmark" />}
-        />
+        <Route path="login" element={<Login />} />
         <Route path="dashboard" element={<Dashboard claims={claims} />} />
         <Route
           path="*"

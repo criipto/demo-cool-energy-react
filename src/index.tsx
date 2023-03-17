@@ -1,39 +1,28 @@
 import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  BrowserRouter,
-  useLocation,
-  useParams,
-  useMatch,
-} from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import { CriiptoVerifyProvider } from '@criipto/verify-react';
 import App from './App';
 import './index.css';
+import '@fontsource/ibm-plex-sans';
 
 function CriiptoVerifyProviderWrapper() {
-  // const location = useLocation();
-  // const search = useMemo(
-  //   () => new URLSearchParams(location.search),
-  //   [location]
-  // );
+  const location = useLocation();
+  const search = useMemo(
+    () => new URLSearchParams(location.search),
+    [location]
+  );
 
-  // const environment = search.get('environment') ?? 'test';
-
-  const { environment } = useParams();
-  console.log('environment from CriiptoVerifyProviderWrapper', environment);
-  const match = useMatch('/login/:environment');
-  const defaultEnvironment = match ? match.params.environment : 'test';
+  const environment = search.get('environment') ?? 'test';
 
   const domain =
-    defaultEnvironment === 'test'
-      ? 'demos.criipto.id'
-      : 'demos-test.criipto.id';
+    environment === 'test' ? 'demos-test.criipto.id' : 'demos.criipto.id';
 
   return (
     <CriiptoVerifyProvider
       domain={domain}
       clientID="urn:demos:cool-energy-react"
-      redirectUri="http://localhost:3000/dashboard"
+      redirectUri={window.location.origin + '/dashboard'}
       sessionStore={window.sessionStorage}
     >
       <App />
