@@ -33,7 +33,7 @@ function Login() {
     <>
       <Hero />
       <div className="flex flex-wrap flex-col mb-4 justify-center align-center content-center">
-        <h1 className="font-semibold text-xl px-12 md:px-12 m-2 ml-4 mt-16 leading-normal">
+        <h1 className="font-semibold text-xl px-12 md:px-12 m-2 ml-4 lg:mt-8 leading-normal">
           Login to Cool Energy to see your consumption data
         </h1>
         <div className="Auth-container">

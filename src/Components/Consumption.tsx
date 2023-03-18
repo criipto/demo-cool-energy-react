@@ -7,15 +7,9 @@ interface Props {
 function Consumption(props: Props) {
   const { period } = props;
   return (
-    <div className="bg-dashboardCardGeneric m-2 align-items-center justify-center">
-      <img
-        src="/img/consumption-pie-chart.png"
-        alt="Consumption pie chart"
-        className="m-4 p-4"
-      />
-      <p className="m-4 font-semibold text-align-center">
-        Consumption {period}
-      </p>
+    <div className="bg-dashboardCardGeneric centered">
+      <img src="/img/consumption-pie-chart.png" alt="Consumption pie chart" />
+      <h5 className="font-semibold pt-40px text-2xl">Consumption {period}</h5>
     </div>
   );
 }

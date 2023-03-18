@@ -11,6 +11,7 @@ body {
   background-image: 'url/background_desktop.png';
   color: #302935;
   font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
 }
 
 button {

@@ -13,8 +13,8 @@ function UserData(props: Props) {
   const lastName = claims?.name.split(' ')[1];
 
   return (
-    <div className="bg-dashboardCardUser m-2">
-      <h1 className="font-bold m-4">Your data</h1>
+    <div className="bg-dashboardCardUser">
+      <h1 className="font-semibold pb-12px text-2xl">Your data</h1>
       <ul className="user-data">
         <li>
           <span className="fixed-width">First Name</span>

@@ -16,7 +16,7 @@ function CriiptoVerifyProviderWrapper() {
   const environment = search.get('environment') ?? 'test';
 
   const domain =
-    environment === 'test' ? 'demos-test.criipto.id' : 'demos.criipto.id';
+    environment === 'test' ? 'natalia-test.criipto.id' : 'demos.criipto.id';
 
   return (
     <CriiptoVerifyProvider

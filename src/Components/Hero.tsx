@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <div className="mt-6 bg-hero bg-240 bg-right-top bg-no-repeat h-96 md:bg-contain flex items-top justify-center"></div>
+    <div className="mt-4 bg-hero bg-240 bg-right-top md:bg-center bg-no-repeat md:h-96 h-426px sm:bg-contain flex items-top justify-center"></div>
   );
 }
 
