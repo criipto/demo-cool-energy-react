@@ -30,19 +30,17 @@ function Login() {
   }, [search]);
 
   return (
-    <>
+    <div className="flex flex-col justify-between md:flex-col-reverse h-full">
       <Hero />
-      <div className="flex flex-wrap flex-col mb-4 justify-center align-center content-center">
-        <h1 className="font-semibold text-xl px-12 md:px-12 m-2 ml-4 lg:mt-8 leading-normal">
+      <div className="flex flex-wrap flex-col mt-8 lg:mt-0 mb-3 justify-center align-bottom content-center">
+        <h1 className="font-semibold text-xl px-1 m-2 ml-4 lg:m-0 lg:mt-8 leading-normal">
           Login to Cool Energy to see your consumption data
         </h1>
-        <div className="Auth-container">
-          <AuthMethodSelector
-            acrValues={acrValues.length ? acrValues : undefined}
-          />
-        </div>
+        <AuthMethodSelector
+          acrValues={acrValues.length ? acrValues : undefined}
+        />
       </div>
-    </>
+    </div>
   );
 }
 

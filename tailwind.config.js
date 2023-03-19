@@ -15,13 +15,12 @@ module.exports = withMT({
     extend: {
       backgroundImage: {
         hero: "url('../public/img/hero.png')",
+        heroMobile: "url('../public/img/hero-mobile.png')",
       },
       backgroundSize: {
         auto: 'auto',
         cover: 'cover',
         contain: 'contain',
-        240: '240%', //showing left side of the image
-        260: '260%', //for large screens
       },
       padding: {
         '12px': '12px',
@@ -50,7 +49,7 @@ module.exports = withMT({
         '72px': '72px', // header height
         '80px': '80px', // header height for large screens
         '232px': '232px',
-        '426px': '426px',
+        '231px': '240px',
         '486px': '486px',
       },
       width: {
@@ -62,6 +61,7 @@ module.exports = withMT({
       },
     },
     screens: {
+      tablet: '395px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
