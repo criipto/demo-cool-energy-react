@@ -30,10 +30,9 @@ function Login() {
   }, [search]);
 
   return (
-    <div className="flex flex-col justify-between md:flex-col-reverse h-full">
-      <Hero />
+    <div className="flex flex-col justify-end md:flex-col-reverse h-full md:h-[90vh] bg-heroMobile bg-contain md:bg-hero bg-no-repeat bg-top md:bg-bottom">
       <div className="flex flex-wrap flex-col mt-8 lg:mt-0 justify-center align-bottom content-center">
-        <h1 className="font-semibold text-xl px-1 m-2 ml-4 lg:m-0 lg:mt-8 leading-normal">
+        <h1 className="font-semibold text-xl px-1 m-2 ml-4 mt-6 lg:m-0 lg:mt-8 leading-normal">
           Login to Cool Energy to see your consumption data
         </h1>
         <AuthMethodSelector
