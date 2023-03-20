@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
 
 interface Props {
@@ -7,6 +8,11 @@ interface Props {
 
 function Header(props: Props) {
   const { handleLogout, claims } = props;
+
+  const navigate = useNavigate();
+  const handleLogin = () => navigate('/login');
+
+  let mql = window.matchMedia('(min-width: 1024px)');
 
   return (
     <header
@@ -31,7 +37,17 @@ function Header(props: Props) {
             <img src="/log-out.png" alt="" className="h-5 w-5 ml-1.5" />
           </button>
         ) : (
-          <Modal />
+          <>
+            <Modal />
+            {window.location.pathname === '/' && mql.matches && (
+              <button
+                onClick={() => handleLogin()}
+                className="uppercase text-sm font-medium h-8 w-[110px] bg-primary flex items-center justify-center ml-7"
+              >
+                Log In
+              </button>
+            )}
+          </>
         )}
       </div>
     </header>

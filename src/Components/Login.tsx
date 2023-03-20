@@ -32,7 +32,7 @@ function Login() {
   return (
     <div className="flex flex-col justify-between md:flex-col-reverse h-full">
       <Hero />
-      <div className="flex flex-wrap flex-col mt-8 lg:mt-0 mb-3 justify-center align-bottom content-center">
+      <div className="flex flex-wrap flex-col mt-8 lg:mt-0 justify-center align-bottom content-center">
         <h1 className="font-semibold text-xl px-1 m-2 ml-4 lg:m-0 lg:mt-8 leading-normal">
           Login to Cool Energy to see your consumption data
         </h1>

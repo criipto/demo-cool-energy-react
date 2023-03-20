@@ -4,9 +4,11 @@ import '@criipto/verify-react/dist/criipto-verify-react.css';
 import Dashboard from './Components/Dashboard';
 import Header from './Components/Header';
 import Login from './Components/Login';
+import HomeDesktop from './Components/HomeDesktop';
 import './App.css';
 
 function App() {
+  let mql = window.matchMedia('(min-width: 1024px)');
   const { claims, logout } = useCriiptoVerify();
 
   const handleLogout = () => {
@@ -20,6 +22,8 @@ function App() {
       <Routes>
         {claims ? (
           <Route index element={<Navigate to="/dashboard" />} />
+        ) : mql.matches ? (
+          <Route index element={<HomeDesktop />} />
         ) : (
           <Route index element={<Navigate to="/login" />} />
         )}
