@@ -9,7 +9,7 @@ function Consumption(props: Props) {
   return (
     <div className="bg-dashboardCardGeneric centered">
       <img src="/img/consumption-pie-chart.png" alt="Consumption pie chart" />
-      <h5 className="font-semibold pt-40px text-2xl">Consumption {period}</h5>
+      <h5 className="font-semibold pt-10 text-2xl">Consumption {period}</h5>
     </div>
   );
 }

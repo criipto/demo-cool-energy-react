@@ -2,6 +2,7 @@
   background-color: #edeefb;
   align-items: center;
   justify-content: center;
+  height: 90vh;
 }
 
 @media screen and (max-width: 640px) {
@@ -49,7 +50,7 @@
   min-height: 300px;
   min-width: 317px;
   max-width: 380px;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 16px;
   margin-top: 0;
@@ -76,10 +77,11 @@
 }
 
 .fixed-width {
-  min-width: 77px;
   flex-shrink: 0;
-  /* font-size: 16px; */
+  font-size: 16px;
   line-height: 30px;
+  min-width: 77px;
+  font-weight: 400;
 }
 
 .data-name {

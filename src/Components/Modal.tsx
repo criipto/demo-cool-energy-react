@@ -61,7 +61,7 @@ export default function Modal() {
             label="Production"
             className="font-semibold text-darkText"
             color="indigo"
-            checked={environment == 'production'}
+            checked={environment === 'production'}
             onChange={handleToggleEnv}
           />
           <div className="checkbox-wrapper flex flex-col m-2">

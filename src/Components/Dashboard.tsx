@@ -12,7 +12,7 @@ function Dashboard(props: Props) {
 
   return (
     <div>
-      <h1 className="greeting text-primary text-4xl leading-44px font-medium py-32px mx-4 md:mx-40px md:py-64px">
+      <h1 className="greeting text-primary text-4xl leading-11 font-medium py-8 mx-4 md:mx-10 md:py-16 lg:py-24">
         Hi, {userName || 'user'}
       </h1>
       <div className="dashboard-items">

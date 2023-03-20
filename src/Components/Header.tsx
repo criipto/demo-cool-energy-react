@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
 import Modal from './Modal';
 
 interface Props {
@@ -10,15 +8,9 @@ interface Props {
 function Header(props: Props) {
   const { handleLogout, claims } = props;
 
-  const location = useLocation();
-  const search = useMemo(
-    () => new URLSearchParams(location.search),
-    [location]
-  );
-
   return (
     <header
-      className={`header lg:h-80px h-72px flex no-wrap justify-between items-center mx-4 md:mr-32px md:mx-40px ${
+      className={`header lg:h-20 h-[72px] flex no-wrap justify-between items-center mx-4 md:mr-8 md:mx-10 ${
         window.location.pathname.includes('dashboard') ? 'dashboard-header' : ''
       }`}
     >
@@ -26,17 +18,17 @@ function Header(props: Props) {
         <img
           src="/logo-text.png"
           alt="Cool Energy Logo"
-          className="h-40px w-220px"
+          className="h-10 w-[220px]"
         />
       </div>
       <div className="logout flex justify-end">
         {claims ? (
           <button
             onClick={() => handleLogout()}
-            className="uppercase text-sm font-medium h-32px w-150px bg-primary flex items-center justify-center"
+            className="uppercase text-sm font-medium h-8 w-[150px] bg-primary flex items-center justify-center"
           >
             Log Out
-            <img src="/log-out.png" className="h-5 w-5 ml-1.5" />
+            <img src="/log-out.png" alt="" className="h-5 w-5 ml-1.5" />
           </button>
         ) : (
           <Modal />

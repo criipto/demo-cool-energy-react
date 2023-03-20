@@ -14,7 +14,7 @@ function UserData(props: Props) {
 
   return (
     <div className="bg-dashboardCardUser">
-      <h1 className="font-semibold pb-12px text-2xl">Your data</h1>
+      <h1 className="font-semibold pb-3 text-2xl">Your data</h1>
       <ul className="user-data">
         <li>
           <span className="fixed-width">First Name</span>
