@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface Props {
   claims: any;
 }
@@ -7,7 +5,6 @@ interface Props {
 function UserData(props: Props) {
   const { claims } = props;
   const { age, address, cprNumberIdentifier, country } = claims;
-  console.log(claims);
 
   const firstName = claims?.name.split(' ')[0];
   const lastName = claims?.name.split(' ')[1];

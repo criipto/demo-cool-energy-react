@@ -43,7 +43,10 @@ export default function Modal() {
 
   return (
     <Fragment>
-      <Button onClick={handleOpen} className="bg-transparent shadow-none p-0">
+      <Button
+        onClick={handleOpen}
+        className="bg-transparent shadow-none p-0 hover:shadow-none"
+      >
         <img
           src="/gear-icon.png"
           alt="Cool Energy Logo"

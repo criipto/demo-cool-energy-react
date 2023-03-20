@@ -25,9 +25,15 @@ function App() {
         ) : mql.matches ? (
           <Route index element={<HomeDesktop />} />
         ) : (
-          <Route index element={<Navigate to="/login" />} />
+          <Route index element={<Login />} />
+        )}
+        {claims && (
+          <Route path="/login" element={<Navigate to="/dashboard" />} />
         )}
         <Route path="login" element={<Login />} />
+        {!claims && (
+          <Route path="/dashboard" element={<Navigate to="/login" />} />
+        )}
         <Route path="dashboard" element={<Dashboard claims={claims} />} />
         <Route
           path="*"

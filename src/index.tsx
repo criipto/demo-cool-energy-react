@@ -16,13 +16,13 @@ function CriiptoVerifyProviderWrapper() {
   const environment = search.get('environment') ?? 'test';
 
   const domain =
-    environment === 'test' ? 'natalia-test.criipto.id' : 'demos.criipto.id';
+    environment === 'test' ? 'demos-test.criipto.id' : 'demos.criipto.id';
 
   return (
     <CriiptoVerifyProvider
       domain={domain}
       clientID="urn:demos:cool-energy-react"
-      redirectUri={window.location.origin + '/dashboard'}
+      redirectUri={window.location.origin + '/login'}
       sessionStore={window.sessionStorage}
     >
       <App />

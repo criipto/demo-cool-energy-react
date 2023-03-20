@@ -1,10 +1,13 @@
 import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
-import { AuthMethodSelector } from '@criipto/verify-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCriiptoVerify, AuthMethodSelector } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
-import Hero from './Hero';
 
 function Login() {
+  const { error } = useCriiptoVerify();
+  const navigate = useNavigate();
+  const redirectToLogin = () => navigate('/login');
+
   const location = useLocation();
   const search = useMemo(
     () => new URLSearchParams(location.search),
@@ -35,9 +38,18 @@ function Login() {
         <h1 className="font-semibold text-xl px-1 m-2 ml-4 mt-6 lg:m-0 lg:mt-8 leading-normal">
           Login to Cool Energy to see your consumption data
         </h1>
-        <AuthMethodSelector
-          acrValues={acrValues.length ? acrValues : undefined}
-        />
+        <>
+          {error
+            ? () => {
+                console.log(error, error.error_description);
+                <p>There was an error with that action. Please try again.</p>;
+                redirectToLogin();
+              }
+            : null}
+          <AuthMethodSelector
+            acrValues={acrValues.length ? acrValues : undefined}
+          />
+        </>
       </div>
     </div>
   );

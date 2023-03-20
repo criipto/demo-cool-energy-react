@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Hero from './Hero';
 import UserData from './UserData';
 import Consumption from './Consumption';

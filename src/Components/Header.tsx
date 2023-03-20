@@ -38,7 +38,6 @@ function Header(props: Props) {
           </button>
         ) : (
           <>
-            <Modal />
             {window.location.pathname === '/' && mql.matches && (
               <button
                 onClick={() => handleLogin()}
@@ -47,6 +46,7 @@ function Header(props: Props) {
                 Log In
               </button>
             )}
+            {window.location.pathname === '/login' && <Modal />}
           </>
         )}
       </div>
