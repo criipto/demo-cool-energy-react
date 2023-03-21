@@ -15,26 +15,35 @@ function App() {
     logout({ redirectUri: window.location.origin + '/' });
   };
 
+  const loginRoutes = (
+    <>
+      <Route path="login" element={<Login />} />
+      <Route path="/dashboard" element={<Navigate to="/login" />} />
+    </>
+  );
+
   return (
     <div className="App">
       <Header handleLogout={handleLogout} claims={claims} />
 
       <Routes>
         {claims ? (
-          <Route index element={<Navigate to="/dashboard" />} />
+          <>
+            <Route index element={<Navigate to="/dashboard" />} />
+            <Route path="/login" element={<Navigate to="/dashboard" />} />
+            <Route path="dashboard" element={<Dashboard claims={claims} />} />
+          </>
         ) : mql.matches ? (
-          <Route index element={<HomeDesktop />} />
+          <>
+            <Route index element={<HomeDesktop />} />
+            {loginRoutes}
+          </>
         ) : (
-          <Route index element={<Login />} />
+          <>
+            <Route index element={<Navigate to="/login" />} />
+            {loginRoutes}
+          </>
         )}
-        {claims && (
-          <Route path="/login" element={<Navigate to="/dashboard" />} />
-        )}
-        <Route path="login" element={<Login />} />
-        {!claims && (
-          <Route path="/dashboard" element={<Navigate to="/login" />} />
-        )}
-        <Route path="dashboard" element={<Dashboard claims={claims} />} />
         <Route
           path="*"
           element={
