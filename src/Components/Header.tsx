@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Modal from './Modal';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 function Header(props: Props) {
   const { handleLogout, claims } = props;
 
+  const location = useLocation();
   const navigate = useNavigate();
   const handleLogin = () => navigate('/login');
 
@@ -38,7 +39,7 @@ function Header(props: Props) {
           </button>
         ) : (
           <>
-            {window.location.pathname === '/' && mql.matches && (
+            {location.pathname === '/' && mql.matches && (
               <button
                 onClick={() => handleLogin()}
                 className="uppercase text-sm font-medium h-8 w-[110px] bg-primary flex items-center justify-center ml-7"
@@ -46,7 +47,7 @@ function Header(props: Props) {
                 Log In
               </button>
             )}
-            {window.location.pathname === '/login' && <Modal />}
+            {location.pathname === '/login' && <Modal />}
           </>
         )}
       </div>

@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCriiptoVerify, AuthMethodSelector } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
 
 function Login() {
+  const [showHeader, setShowHeader] = useState(true);
   const { error } = useCriiptoVerify();
 
   const location = useLocation();
@@ -11,6 +12,16 @@ function Login() {
     () => new URLSearchParams(location.search),
     [location]
   );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowHeader(window.matchMedia('(max-width: 1023px)').matches);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const acrValues = useMemo(() => {
     const acrValues: string[] = [];
@@ -32,10 +43,12 @@ function Login() {
 
   return (
     <div className="flex flex-col justify-end md:flex-col-reverse h-full md:h-[90vh] bg-heroMobile bg-contain md:bg-hero bg-no-repeat bg-top md:bg-bottom items-center">
-      <div className="flex flex-col mt-8 lg:mt-0 justify-center align-bottom content-center lg:w-[463px]">
-        <h3 className="font-medium text-lg mx-5 m-2 ml-4 pl-5 mt-6 lg:m-0 lg:mt-8 leading-normal">
-          Login to Cool Energy to see your consumption data
-        </h3>
+      <div className="flex flex-col mt-8 lg:mt-0 justify-center align-bottom content-center md:w-[463px]">
+        {showHeader && (
+          <h3 className="font-medium text-lg mx-5 m-2 ml-4 pl-5 mt-6 lg:m-0 lg:mt-8 leading-normal">
+            Login to Cool Energy to see your consumption data
+          </h3>
+        )}
         {error && (
           <>
             <div className="bg-error rounded mt-4 mx-5 pb-[26px] pt-5 max-w-[460px] py-5">
