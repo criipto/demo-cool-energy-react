@@ -1,0 +1,35 @@
+body {
+  background-color: #edeefb;
+  background-image: url('./img/hero.png');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* Desktop headline */
+#headline#headline {
+  display: block !important;
+  background-image: url('./logo-text.png');
+  background-repeat: no-repeat;
+  min-width: 200px;
+  height: 40px;
+  background-size: 220px 40px;
+  background-position: center left;
+  margin: 0;
+  margin-left: 16px;
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
+
+@media screen and (min-width: 768px) {
+  #headline#headline {
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+#headline .lang span {
+  display: none;
+}
