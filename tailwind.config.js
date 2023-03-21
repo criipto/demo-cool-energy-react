@@ -11,6 +11,7 @@ module.exports = withMT({
       secondary: '#F2F2F2', // brigh purle
       dashboardCardUser: '#DAD7FD', // medium purple, data card background
       dashboardCardGeneric: '#DDDFF3',
+      error: '#FEE4E2',
     },
     extend: {
       backgroundImage: {

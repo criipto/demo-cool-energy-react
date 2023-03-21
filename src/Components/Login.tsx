@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useCriiptoVerify, AuthMethodSelector } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
 
 function Login() {
   const { error } = useCriiptoVerify();
-  const navigate = useNavigate();
-  const redirectToLogin = () => navigate('/login');
 
   const location = useLocation();
   const search = useMemo(
@@ -33,23 +31,36 @@ function Login() {
   }, [search]);
 
   return (
-    <div className="flex flex-col justify-end md:flex-col-reverse h-full md:h-[90vh] bg-heroMobile bg-contain md:bg-hero bg-no-repeat bg-top md:bg-bottom">
-      <div className="flex flex-wrap flex-col mt-8 lg:mt-0 justify-center align-bottom content-center">
-        <h1 className="font-semibold text-xl px-1 m-2 ml-4 mt-6 lg:m-0 lg:mt-8 leading-normal">
+    <div className="flex flex-col justify-end md:flex-col-reverse h-full md:h-[90vh] bg-heroMobile bg-contain md:bg-hero bg-no-repeat bg-top md:bg-bottom items-center">
+      <div className="flex flex-col mt-8 lg:mt-0 justify-center align-bottom content-center lg:w-[463px]">
+        <h3 className="font-medium text-lg mx-5 m-2 ml-4 pl-5 mt-6 lg:m-0 lg:mt-8 leading-normal">
           Login to Cool Energy to see your consumption data
-        </h1>
-        <>
-          {error
-            ? () => {
-                console.log(error, error.error_description);
-                <p>There was an error with that action. Please try again.</p>;
-                redirectToLogin();
-              }
-            : null}
-          <AuthMethodSelector
-            acrValues={acrValues.length ? acrValues : undefined}
-          />
-        </>
+        </h3>
+        {error && (
+          <>
+            <div className="bg-error rounded mt-4 mx-5 pb-[26px] pt-5 max-w-[460px] py-5">
+              <div className="flex flex-row nowrap px-4">
+                <img
+                  src="/alert.png"
+                  alt="Error icon"
+                  className="relative top-0 left-0 h-5 w-5 mr-2"
+                />
+                <h5 className="font-semibold">
+                  There was an error logging in.
+                </h5>
+              </div>
+              <div className="font-medium mt-2 ml-11">
+                <>
+                  <p>Please try again.</p>
+                  {console.log(error.error_description)}
+                </>
+              </div>
+            </div>
+          </>
+        )}
+        <AuthMethodSelector
+          acrValues={acrValues.length ? acrValues : undefined}
+        />
       </div>
     </div>
   );
