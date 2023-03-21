@@ -4,7 +4,7 @@ interface Props {
 
 function UserData(props: Props) {
   const { claims } = props;
-  const { age, address, cprNumberIdentifier, country } = claims;
+  const { age, address, cprNumberIdentifier, country, ssn, socialno } = claims;
 
   const firstName = claims?.name.split(' ')[0];
   const lastName = claims?.name.split(' ')[1];
@@ -21,26 +21,44 @@ function UserData(props: Props) {
           <span className="fixed-width">Last Name</span>
           <span className="data-name">{lastName}</span>
         </li>
-        <li>
-          <span className="fixed-width">Age</span>
-          <span className="data-name">{age}</span>
-        </li>
-        <li>
-          <span className="fixed-width">CPR</span>
-          <span className="data-name">{cprNumberIdentifier}</span>
-        </li>
-        <li>
-          <span className="fixed-width">Street</span>
-          <span className="data-name">{address.street_address}</span>
-        </li>
-        <li>
-          <span className="fixed-width">Town</span>
-          <span className="data-name">{address.city}</span>
-        </li>
-        <li>
-          <span className="fixed-width">Zip code</span>
-          <span className="data-name">{address.postal_code}</span>
-        </li>
+        {age && (
+          <li>
+            <span className="fixed-width">Age</span>
+            <span className="data-name">{age}</span>
+          </li>
+        )}
+        {ssn ? (
+          <li>
+            <span className="fixed-width">SSN</span>
+            <span className="data-name">{ssn}</span>
+          </li>
+        ) : cprNumberIdentifier ? (
+          <li>
+            <span className="fixed-width">SSN</span>
+            <span className="data-name">{cprNumberIdentifier}</span>
+          </li>
+        ) : socialno ? (
+          <li>
+            <span className="fixed-width">SSN</span>
+            <span className="data-name">{socialno}</span>
+          </li>
+        ) : null}
+        {address && (
+          <>
+            <li>
+              <span className="fixed-width">Street</span>
+              <span className="data-name">{address.street_address}</span>
+            </li>
+            <li>
+              <span className="fixed-width">Town</span>
+              <span className="data-name">{address.city}</span>
+            </li>
+            <li>
+              <span className="fixed-width">Zip code</span>
+              <span className="data-name">{address.postal_code}</span>
+            </li>
+          </>
+        )}
         <li>
           <span className="fixed-width">Country</span>
           <span className="data-name">{country}</span>
