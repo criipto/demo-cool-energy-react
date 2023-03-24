@@ -4,23 +4,40 @@ interface Props {
 
 function UserData(props: Props) {
   const { claims } = props;
-  const { age, address, cprNumberIdentifier, country, ssn, socialno } = claims;
-
-  const firstName = claims?.name.split(' ')[0];
-  const lastName = claims?.name.split(' ')[1];
+  const {
+    age,
+    address,
+    cprNumberIdentifier,
+    country,
+    ssn,
+    socialno,
+    family_name,
+    given_name,
+    name,
+  } = claims;
 
   return (
     <div className="bg-dashboardCardUser">
       <h1 className="font-semibold pb-3 text-2xl">Your data</h1>
       <ul className="user-data">
-        <li>
-          <span className="fixed-width">First Name</span>
-          <span className="data-name">{firstName}</span>
-        </li>
-        <li>
-          <span className="fixed-width">Last Name</span>
-          <span className="data-name">{lastName}</span>
-        </li>
+        {name && (
+          <li>
+            <span className="fixed-width">Name</span>
+            <span className="data-name">{name}</span>
+          </li>
+        )}
+        {given_name && (
+          <li>
+            <span className="fixed-width">First Name</span>
+            <span className="data-name">{given_name}</span>
+          </li>
+        )}
+        {family_name && (
+          <li>
+            <span className="fixed-width">Last Name</span>
+            <span className="data-name">{family_name}</span>
+          </li>
+        )}
         {age && (
           <li>
             <span className="fixed-width">Age</span>

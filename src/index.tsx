@@ -24,6 +24,7 @@ function CriiptoVerifyProviderWrapper() {
       clientID="urn:demos:cool-energy-react"
       redirectUri={window.location.origin + '/login'}
       sessionStore={window.sessionStorage}
+      message="Log in to Cool Energy"
     >
       <App />
     </CriiptoVerifyProvider>
