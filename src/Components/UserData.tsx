@@ -20,24 +20,23 @@ function UserData(props: Props) {
     <div className="bg-dashboardCardUser">
       <h1 className="font-semibold pb-3 text-2xl">Your data</h1>
       <ul className="user-data">
-        {name && (
+        {given_name && family_name ? (
+          <>
+            <li>
+              <span className="fixed-width">First Name</span>
+              <span className="data-name">{given_name}</span>
+            </li>
+            <li>
+              <span className="fixed-width">Last Name</span>
+              <span className="data-name">{family_name}</span>
+            </li>
+          </>
+        ) : name ? (
           <li>
             <span className="fixed-width">Name</span>
             <span className="data-name">{name}</span>
           </li>
-        )}
-        {given_name && (
-          <li>
-            <span className="fixed-width">First Name</span>
-            <span className="data-name">{given_name}</span>
-          </li>
-        )}
-        {family_name && (
-          <li>
-            <span className="fixed-width">Last Name</span>
-            <span className="data-name">{family_name}</span>
-          </li>
-        )}
+        ) : null}
         {age && (
           <li>
             <span className="fixed-width">Age</span>
@@ -62,24 +61,36 @@ function UserData(props: Props) {
         ) : null}
         {address && (
           <>
-            <li>
-              <span className="fixed-width">Street</span>
-              <span className="data-name">{address.street_address}</span>
-            </li>
-            <li>
-              <span className="fixed-width">Town</span>
-              <span className="data-name">{address.city}</span>
-            </li>
-            <li>
-              <span className="fixed-width">Zip code</span>
-              <span className="data-name">{address.postal_code}</span>
-            </li>
+            {address.street_address && (
+              <li>
+                <span className="fixed-width">Street</span>
+                <span className="data-name">{address.street_address}</span>
+              </li>
+            )}
+            {address.city && (
+                <li>
+                  <span className="fixed-width">City</span>
+                  <span className="data-name">
+                    {address.city || address.locality}
+                  </span>
+                </li>
+              )}
+            {address.postal_code && (
+              <li>
+                <span className="fixed-width">Zip code</span>
+                <span className="data-name">{address.postal_code}</span>
+              </li>
+            )}
           </>
         )}
-        <li>
-          <span className="fixed-width">Country</span>
-          <span className="data-name">{country}</span>
-        </li>
+        {country && (
+          <li>
+            <span className="fixed-width">Country</span>
+            {country === 'DK' && <span className="data-name">Denmark</span>}
+            {country === 'SE' && <span className="data-name">Sweden</span>}
+            {country === 'NO' && <span className="data-name">Norway</span>}
+          </li>
+        )}
       </ul>
     </div>
   );
