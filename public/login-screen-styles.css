@@ -7,6 +7,10 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
 }
 
+.broker .frame { 
+  background: none;
+}
+
 /* Desktop headline */
 #headline#headline {
   display: block !important;
