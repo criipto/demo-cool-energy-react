@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
 
-const countries = ['denmark', 'sweden', 'norway'] as const;
+const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
 type Country = typeof countries[number];
 
 export default function Modal() {
