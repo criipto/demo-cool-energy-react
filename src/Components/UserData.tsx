@@ -89,6 +89,7 @@ function UserData(props: Props) {
             {country === 'DK' && <span className="data-name">Denmark</span>}
             {country === 'SE' && <span className="data-name">Sweden</span>}
             {country === 'NO' && <span className="data-name">Norway</span>}
+            {country === 'FI' && <span className="data-name">Finland</span>}
           </li>
         )}
       </ul>

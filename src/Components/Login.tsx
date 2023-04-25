@@ -38,13 +38,17 @@ function Login() {
       acrValues.push('urn:grn:authn:no:bankid:substantial');
     }
 
+    if (search.get('finland') !== null) {
+      acrValues.push('urn:grn:authn:fi:all');
+    }
+
     return acrValues;
   }, [search]);
 
   return (
     <div className="flex flex-col justify-end md:flex-col-reverse h-full md:h-[90vh] bg-heroMobile bg-contain md:bg-hero bg-no-repeat bg-top md:bg-bottom items-center">
-      <div className="flex flex-col mt-8 lg:mt-0 justify-center align-bottom content-center md:w-[463px] overflow-scroll">
-        <div className="overflow-scroll">
+      <div className="flex flex-col mt-8 lg:mt-0 justify-center align-bottom content-center md:w-[463px] overflow-auto">
+        <div className="overflow-auto">
           {showHeading && (
             <h3 className="font-medium text-lg mx-5 m-2 ml-4 pl-5 mt-60 leading-normal">
               Login to Cool Energy to see your consumption data
