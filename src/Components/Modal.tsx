@@ -6,17 +6,12 @@ import useIsMobile from '../Hooks/useIsMobile';
 const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
 type Country = (typeof countries)[number];
 
-interface Props {
-  handleShowQr: () => void;
-  showQrCode: boolean;
-}
-
-export default function Modal(props: Props) {
-  const { handleShowQr, showQrCode } = props;
+export default function Modal() {
   let [searchParams, setSearchParams] = useSearchParams();
   const { isMobile } = useIsMobile();
 
   const environment = searchParams.get('environment') ?? 'test';
+  const qr = searchParams.get('qr');
   const enabledCountries = countries.filter(
     (country) => searchParams.get(country) !== null
   );
@@ -31,6 +26,17 @@ export default function Modal(props: Props) {
         'environment',
         params.get('environment') === 'test' ? 'production' : 'test'
       );
+      return params;
+    });
+  };
+
+  const handleToggleQr = () => {
+    setSearchParams((params) => {
+      if (qr === 'true') {
+        params.delete('qr');
+      } else {
+        params.set('qr', 'true');
+      }
       return params;
     });
   };
@@ -83,8 +89,8 @@ export default function Modal(props: Props) {
                   id="qr-toggle"
                   label="QR code"
                   color="indigo"
-                  checked={showQrCode}
-                  onChange={handleShowQr}
+                  checked={qr === 'true'}
+                  onChange={handleToggleQr}
                 />
               </div>
             )}

@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import useSearch from '../Hooks/useSearch';
 import useIsMobile from '../Hooks/useIsMobile';
-import useIsOnlySweden from '../Hooks/useIsOnlySweden';
 
 import {
   useCriiptoVerify,
@@ -10,15 +9,10 @@ import {
 } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
 
-interface Props {
-  showQrCode: boolean;
-}
-
-function Login({ showQrCode }: Props) {
+function Login() {
   const { isMobile } = useIsMobile();
   const { error } = useCriiptoVerify();
   const search = useSearch();
-  const { isOnlySweden } = useIsOnlySweden(search);
 
   const acrValues = useMemo(() => {
     let acrValues: string[] = [];
@@ -29,7 +23,7 @@ function Login({ showQrCode }: Props) {
 
     if (search.get('sweden') !== null) {
       acrValues.push('urn:grn:authn:se:bankid:same-device');
-      if (!isMobile && showQrCode) {
+      if (!isMobile) {
         acrValues.push('urn:grn:authn:se:bankid:another-device:qr');
       } else {
         acrValues = acrValues.filter(
@@ -47,7 +41,20 @@ function Login({ showQrCode }: Props) {
     }
 
     return acrValues;
-  }, [search, isMobile, showQrCode]);
+  }, [search, isMobile]);
+
+  function shouldShowQr(): boolean {
+    const searchParams = new URLSearchParams(window.location.search);
+    return searchParams.has('qr');
+  }
+
+  const showQr = shouldShowQr();
+
+  // If only Sweden is selected, won't render a custom QR code
+  const isOnlySwedenSelected =
+    acrValues.includes('urn:grn:authn:se:bankid:same-device') &&
+    acrValues.includes('urn:grn:authn:se:bankid:another-device:qr') &&
+    acrValues.length === 2;
 
   return (
     <div className="flex flex-col justify-end md:flex-col-reverse h-full md:h-[90vh] bg-heroMobile bg-contain md:bg-hero bg-no-repeat bg-top md:bg-bottom items-center">
@@ -83,7 +90,7 @@ function Login({ showQrCode }: Props) {
           <AuthMethodSelector
             acrValues={acrValues.length ? acrValues : undefined}
           />
-          {!isMobile && showQrCode && !isOnlySweden && (
+          {!isMobile && showQr && !isOnlySwedenSelected && (
             <div className="qrBox">
               <QRCode margin={3}>
                 {({
