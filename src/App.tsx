@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useCriiptoVerify } from '@criipto/verify-react';
 import '@criipto/verify-react/dist/criipto-verify-react.css';
@@ -8,8 +9,13 @@ import HomeDesktop from './Components/HomeDesktop';
 import './App.css';
 
 function App() {
-  let mql = window.matchMedia('(min-width: 1024px)');
+  const [showQr, setShowQr] = useState(false);
   const { claims, logout } = useCriiptoVerify();
+  let mql = window.matchMedia('(min-width: 1024px)');
+
+  const handleShowQr = () => {
+    setShowQr(!showQr);
+  };
 
   const handleLogout = () => {
     logout({ redirectUri: window.location.origin + '/' });
@@ -17,14 +23,19 @@ function App() {
 
   const loginRoutes = (
     <>
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login showQrCode={showQr} />} />
       <Route path="/dashboard" element={<Navigate to="/login" />} />
     </>
   );
 
   return (
     <div className="App">
-      <Header handleLogout={handleLogout} claims={claims} />
+      <Header
+        handleLogout={handleLogout}
+        handleShowQr={handleShowQr}
+        showQrCode={showQr}
+        claims={claims}
+      />
 
       <Routes>
         {claims ? (

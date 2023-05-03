@@ -3,11 +3,13 @@ import Modal from './Modal';
 
 interface Props {
   handleLogout: () => void;
+  handleShowQr: () => void;
+  showQrCode: boolean;
   claims: any;
 }
 
 function Header(props: Props) {
-  const { handleLogout, claims } = props;
+  const { handleLogout, handleShowQr, showQrCode, claims } = props;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -47,7 +49,9 @@ function Header(props: Props) {
                 Log In
               </button>
             )}
-            {location.pathname === '/login' && <Modal />}
+            {location.pathname === '/login' && (
+              <Modal handleShowQr={handleShowQr} showQrCode={showQrCode} />
+            )}
           </>
         )}
       </div>

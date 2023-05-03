@@ -1,12 +1,20 @@
 import { Fragment, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
+import useIsMobile from '../Hooks/useIsMobile';
 
 const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
-type Country = typeof countries[number];
+type Country = (typeof countries)[number];
 
-export default function Modal() {
+interface Props {
+  handleShowQr: () => void;
+  showQrCode: boolean;
+}
+
+export default function Modal(props: Props) {
+  const { handleShowQr, showQrCode } = props;
   let [searchParams, setSearchParams] = useSearchParams();
+  const { isMobile } = useIsMobile();
 
   const environment = searchParams.get('environment') ?? 'test';
   const enabledCountries = countries.filter(
@@ -56,17 +64,31 @@ export default function Modal() {
       <Dialog
         open={open}
         handler={handleOpen}
-        className="bg-background w-96 lg:w-full"
+        className="bg-background w-96 lg:w-full mr-3"
       >
         <DialogBody>
-          <Switch
-            id="env-toggle"
-            label="Production"
-            className="font-semibold text-darkText"
-            color="indigo"
-            checked={environment === 'production'}
-            onChange={handleToggleEnv}
-          />
+          <div className="flex mx-2">
+            <div className="m-2">
+              <Switch
+                id="env-toggle"
+                label="Production"
+                color="indigo"
+                checked={environment === 'production'}
+                onChange={handleToggleEnv}
+              />
+            </div>
+            {!isMobile && (
+              <div className="m-2">
+                <Switch
+                  id="qr-toggle"
+                  label="QR code"
+                  color="indigo"
+                  checked={showQrCode}
+                  onChange={handleShowQr}
+                />
+              </div>
+            )}
+          </div>
           <div className="checkbox-wrapper flex flex-col m-2">
             {countries.map((country) => {
               const countryName =

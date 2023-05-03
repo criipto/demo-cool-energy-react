@@ -1,17 +1,14 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, useLocation } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { CriiptoVerifyProvider } from '@criipto/verify-react';
 import App from './App';
+import useSearch from './Hooks/useSearch';
 import './index.css';
 import '@fontsource/ibm-plex-sans';
 
 function CriiptoVerifyProviderWrapper() {
-  const location = useLocation();
-  const search = useMemo(
-    () => new URLSearchParams(location.search),
-    [location]
-  );
+  const search = useSearch();
 
   const environment = search.get('environment') ?? 'test';
 
