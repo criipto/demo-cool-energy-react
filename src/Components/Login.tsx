@@ -25,10 +25,6 @@ function Login() {
       acrValues.push('urn:grn:authn:se:bankid:same-device');
       if (!isMobile) {
         acrValues.push('urn:grn:authn:se:bankid:another-device:qr');
-      } else {
-        acrValues = acrValues.filter(
-          (value) => value !== 'urn:grn:authn:se:bankid:another-device:qr'
-        );
       }
     }
 

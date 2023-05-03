@@ -7,16 +7,17 @@ const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
 type Country = (typeof countries)[number];
 
 export default function Modal() {
+  const [open, setOpen] = useState(false);
   let [searchParams, setSearchParams] = useSearchParams();
   const { isMobile } = useIsMobile();
 
   const environment = searchParams.get('environment') ?? 'test';
+
   const qr = searchParams.get('qr');
+
   const enabledCountries = countries.filter(
     (country) => searchParams.get(country) !== null
   );
-
-  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
