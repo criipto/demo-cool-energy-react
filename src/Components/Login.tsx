@@ -118,10 +118,8 @@ function Login({ showQrCode }: Props) {
                           <h2>An error occurred</h2>
                           <p>
                             {error.message ?? error}
-                            <br />{' '}
-                            <a role="button" onClick={retry}>
-                              Try again.
-                            </a>
+                            <br />
+                            <button onClick={retry}>Try again.</button>
                             <br />
                           </p>
                         </React.Fragment>
@@ -129,13 +127,12 @@ function Login({ showQrCode }: Props) {
                         <React.Fragment>
                           <h2>Login cancelled</h2>
                           <p>
-                            <a
-                              role="button"
+                            <button
                               onClick={retry}
                               className="text-primary hover:text-darkText underline"
                             >
                               Try again.
-                            </a>
+                            </button>
                             <br />
                           </p>
                         </React.Fragment>
