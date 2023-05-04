@@ -1,19 +1,23 @@
 import { Fragment, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
+import useIsMobile from '../Hooks/useIsMobile';
 
 const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
-type Country = typeof countries[number];
+type Country = (typeof countries)[number];
 
 export default function Modal() {
+  const [open, setOpen] = useState(false);
   let [searchParams, setSearchParams] = useSearchParams();
+  const { isMobile } = useIsMobile();
 
   const environment = searchParams.get('environment') ?? 'test';
+
+  const qr = searchParams.get('qr');
+
   const enabledCountries = countries.filter(
     (country) => searchParams.get(country) !== null
   );
-
-  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
@@ -23,6 +27,17 @@ export default function Modal() {
         'environment',
         params.get('environment') === 'test' ? 'production' : 'test'
       );
+      return params;
+    });
+  };
+
+  const handleToggleQr = () => {
+    setSearchParams((params) => {
+      if (qr === 'true') {
+        params.delete('qr');
+      } else {
+        params.set('qr', 'true');
+      }
       return params;
     });
   };
@@ -56,17 +71,31 @@ export default function Modal() {
       <Dialog
         open={open}
         handler={handleOpen}
-        className="bg-background w-96 lg:w-full"
+        className="bg-background w-96 lg:w-full mr-3"
       >
         <DialogBody>
-          <Switch
-            id="env-toggle"
-            label="Production"
-            className="font-semibold text-darkText"
-            color="indigo"
-            checked={environment === 'production'}
-            onChange={handleToggleEnv}
-          />
+          <div className="flex mx-2">
+            <div className="m-2">
+              <Switch
+                id="env-toggle"
+                label="Production"
+                color="indigo"
+                checked={environment === 'production'}
+                onChange={handleToggleEnv}
+              />
+            </div>
+            {!isMobile && (
+              <div className="m-2">
+                <Switch
+                  id="qr-toggle"
+                  label="QR code"
+                  color="indigo"
+                  checked={qr === 'true'}
+                  onChange={handleToggleQr}
+                />
+              </div>
+            )}
+          </div>
           <div className="checkbox-wrapper flex flex-col m-2">
             {countries.map((country) => {
               const countryName =

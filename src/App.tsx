@@ -8,8 +8,8 @@ import HomeDesktop from './Components/HomeDesktop';
 import './App.css';
 
 function App() {
-  let mql = window.matchMedia('(min-width: 1024px)');
   const { claims, logout } = useCriiptoVerify();
+  let mql = window.matchMedia('(min-width: 1024px)');
 
   const handleLogout = () => {
     logout({ redirectUri: window.location.origin + '/' });

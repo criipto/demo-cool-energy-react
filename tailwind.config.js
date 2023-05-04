@@ -8,7 +8,7 @@ module.exports = withMT({
       background: '#EDEEFB',
       darkText: '#302935',
       primary: '#604FED', // dark purple
-      secondary: '#F2F2F2', // brigh purle
+      secondary: '#F2F2F2', // bright purle
       dashboardCardUser: '#DAD7FD', // medium purple, data card background
       dashboardCardGeneric: '#DDDFF3',
       error: '#FEE4E2',
