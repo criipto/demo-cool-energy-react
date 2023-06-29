@@ -18,7 +18,7 @@ function Login() {
     let acrValues: string[] = [];
 
     if (search.get('denmark') !== null) {
-      acrValues.push('urn:grn:authn:dk:mitid:low');
+      acrValues.push('urn:grn:authn:dk:mitid:low', 'urn:grn:authn:dk:mitid:business');
     }
 
     if (search.get('sweden') !== null) {

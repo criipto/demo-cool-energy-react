@@ -14,13 +14,30 @@ function UserData(props: Props) {
     family_name,
     given_name,
     name,
+    cvrNumberIdentifier,
+    '2.5.4.10': companyName,
   } = claims;
 
   return (
     <div className="bg-dashboardCardUser">
       <h1 className="font-semibold pb-3 text-2xl">Your data</h1>
       <ul className="user-data">
-        {given_name && family_name ? (
+        {cvrNumberIdentifier && companyName && name ? (
+          <>
+            <li>
+              <span className="fixed-width">Company</span>
+              <span className="data-name">{companyName}</span>
+            </li>
+            <li>
+              <span className="fixed-width">CVR</span>
+              <span className="data-name">{cvrNumberIdentifier}</span>
+            </li>
+            <li>
+              <span className="fixed-width">Employee</span>
+              <span className="data-name">{name}</span>
+            </li>
+          </>
+        ) : given_name && family_name ? (
           <>
             <li>
               <span className="fixed-width">First Name</span>
@@ -37,7 +54,7 @@ function UserData(props: Props) {
             <span className="data-name">{name}</span>
           </li>
         ) : null}
-        {age && (
+        {age && !cvrNumberIdentifier && (
           <li>
             <span className="fixed-width">Age</span>
             <span className="data-name">{age}</span>
@@ -48,7 +65,7 @@ function UserData(props: Props) {
             <span className="fixed-width">SSN</span>
             <span className="data-name">{ssn}</span>
           </li>
-        ) : cprNumberIdentifier ? (
+        ) : cprNumberIdentifier && !cvrNumberIdentifier ? (
           <li>
             <span className="fixed-width">SSN</span>
             <span className="data-name">{cprNumberIdentifier}</span>
@@ -68,13 +85,13 @@ function UserData(props: Props) {
               </li>
             )}
             {address.city && (
-                <li>
-                  <span className="fixed-width">City</span>
-                  <span className="data-name">
-                    {address.city || address.locality}
-                  </span>
-                </li>
-              )}
+              <li>
+                <span className="fixed-width">City</span>
+                <span className="data-name">
+                  {address.city || address.locality}
+                </span>
+              </li>
+            )}
             {address.postal_code && (
               <li>
                 <span className="fixed-width">Zip code</span>
