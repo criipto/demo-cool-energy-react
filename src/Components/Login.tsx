@@ -56,9 +56,11 @@ function Login() {
       <div className="flex flex-col mt-8 lg:mt-0 justify-center align-bottom content-center md:w-[463px]">
         <div>
           {isMobile && (
-            <h3 className="font-medium text-lg mx-5 m-2 ml-4 pl-5 mt-60 leading-normal">
-              Login to Cool Energy to see your consumption data
-            </h3>
+            <div className="bg-background">
+              <h3 className="font-medium text-lg mx-5 m-2 ml-4 pl-5 mt-60 leading-normal py-1">
+                Login to Cool Energy to see your consumption data
+              </h3>
+            </div>
           )}
           {error && (
             <>
