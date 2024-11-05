@@ -44,7 +44,7 @@ function Login() {
   function handleWalletLogin() {
     loginWithRedirect({
       acrValues: 'urn:authn:vc:danish_identity',
-      redirectUri: `${window.location.origin}/dashboard`,
+      redirectUri: `${window.location.origin}/login/callback`,
     });
   }
 

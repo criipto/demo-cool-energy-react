@@ -5,6 +5,7 @@ import Dashboard from './Components/Dashboard';
 import Header from './Components/Header';
 import Login from './Components/Login';
 import HomeDesktop from './Components/HomeDesktop';
+import Loading from './Components/Loading';
 import './App.css';
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
 
   const loginRoutes = (
     <>
-      <Route path="login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/login/callback" element={<Loading />} />
       <Route path="/dashboard" element={<Navigate to="/login" />} />
     </>
   );
@@ -30,8 +32,9 @@ function App() {
         {claims ? (
           <>
             <Route index element={<Navigate to="/dashboard" />} />
+            <Route path="/login/callback" element={<Loading />} />
             <Route path="/login" element={<Navigate to="/dashboard" />} />
-            <Route path="dashboard" element={<Dashboard claims={claims} />} />
+            <Route path="/dashboard" element={<Dashboard claims={claims} />} />
           </>
         ) : mql.matches ? (
           <>
