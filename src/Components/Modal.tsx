@@ -83,7 +83,7 @@ export default function Modal() {
     <Fragment>
       <Button
         onClick={handleOpen}
-        className="bg-transparent shadow-none p-0 hover:shadow-none"
+        className="z-10 bg-transparent shadow-none p-0 hover:shadow-none"
       >
         <img
           src="/gear-icon.png"
