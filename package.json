@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@criipto/verify-react": "^1.2.6",
+    "@criipto/verify-react": "^2.4.2",
     "@fontsource/ibm-plex-sans": "^4.5.13",
     "@material-tailwind/react": "^1.4.2",
     "@testing-library/jest-dom": "^5.16.5",
