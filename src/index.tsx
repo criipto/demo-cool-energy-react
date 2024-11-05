@@ -6,6 +6,7 @@ import App from './App';
 import useSearch from './Hooks/useSearch';
 import './index.css';
 import '@fontsource/ibm-plex-sans';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 function CriiptoVerifyProviderWrapper() {
   const search = useSearch();
