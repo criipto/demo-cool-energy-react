@@ -10,9 +10,11 @@ import {
 import '@criipto/verify-react/dist/criipto-verify-react.css';
 
 function Login() {
+  const { isLoading, loginWithRedirect, error } = useCriiptoVerify();
   const { isMobile } = useIsMobile();
-  const { error } = useCriiptoVerify();
   const search = useSearch();
+
+  const walletMode = search.get('wallet') !== null;
 
   const acrValues = useMemo(() => {
     let acrValues: string[] = [];
@@ -38,6 +40,13 @@ function Login() {
 
     return acrValues;
   }, [search, isMobile]);
+
+  function handleWalletLogin() {
+    loginWithRedirect({
+      acrValues: 'urn:authn:vc:danish_identity',
+      redirectUri: `${window.location.origin}/dashboard`,
+    });
+  }
 
   function shouldShowQr(): boolean {
     const searchParams = new URLSearchParams(window.location.search);
@@ -84,9 +93,23 @@ function Login() {
               </div>
             </>
           )}
-          <AuthMethodSelector
-            acrValues={acrValues.length ? acrValues : undefined}
-          />
+          {isLoading ? (
+            <div className="flex items-center justify-center h-screen space-x-2">
+              <i className="fa fa-spinner fa-pulse fa-lg text-primary" />
+              <h2 className="text-primary text-xl font-medium">Loading</h2>
+            </div>
+          ) : walletMode ? (
+            <div className="flex flex-col gap-2 p-5 max-w-[500px]">
+              <button
+                className="uppercase font-medium h-8 bg-primary flex items-center justify-center px-4 py-1.5 h-[60px] no-underline border-0 text-[14px] text-white"
+                onClick={() => handleWalletLogin()}
+              >
+                Log in
+              </button>
+            </div>
+          ) : (
+            <AuthMethodSelector acrValues={acrValues.length ? acrValues : undefined} />
+          )}
           {!isMobile && showQr && !isOnlySwedenSelected && (
             <div className="qrBox">
               <QRCode margin={3}>

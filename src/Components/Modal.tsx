@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
 import useIsMobile from '../Hooks/useIsMobile';
@@ -42,6 +42,29 @@ export default function Modal() {
     });
   };
 
+  const walletMode = sessionStorage.getItem('wallet') || searchParams.get('wallet');
+
+  useEffect(() => {
+    const walletMode = sessionStorage.getItem('wallet');
+    if (walletMode === 'true' && !searchParams.has('wallet')) {
+      searchParams.set('wallet', 'true');
+      setSearchParams(searchParams);
+    }
+  }, [searchParams, setSearchParams]);
+
+  const handleWalletToggle = () => {
+    setSearchParams((params) => {
+      if (walletMode === 'true') {
+        params.delete('wallet');
+        sessionStorage.removeItem('wallet');
+      } else {
+        params.set('wallet', 'true');
+        sessionStorage.setItem('wallet', 'true');
+      }
+      return params;
+    });
+  };
+
   function handleCountry(country: Country) {
     if (enabledCountries.includes(country)) {
       setSearchParams((params) => {
@@ -74,7 +97,7 @@ export default function Modal() {
         className="bg-background w-96 lg:w-full mr-3"
       >
         <DialogBody>
-          <div className="flex mx-2">
+          <div className={`flex mx-2 ${isMobile ? 'flex-col' : ''}`}>
             <div className="m-2">
               <Switch
                 id="env-toggle"
@@ -95,6 +118,15 @@ export default function Modal() {
                 />
               </div>
             )}
+            <div className="m-2">
+              <Switch 
+                id="wallet-toggle" 
+                label="Wallet mode" 
+                color="indigo" 
+                checked={walletMode === 'true'} 
+                onChange={handleWalletToggle} 
+              />
+            </div>
           </div>
           <div className="checkbox-wrapper flex flex-col m-2">
             {countries.map((country) => {
@@ -107,13 +139,13 @@ export default function Modal() {
                 >
                   <input
                     type="checkbox"
-                    className="w-5"
+                    className={`w-5 ${walletMode ? 'bg-gray-200 cursor-not-allowed opacity-50' : ''}`}
                     checked={enabledCountries.includes(country)}
                     onChange={() => {
                       handleCountry(country);
                     }}
                   />
-                  <span className="pl-2 pb-4">{countryName}</span>
+                  <span className={`pl-2 pb-4 ${walletMode ? 'opacity-50' : ''}`}>{countryName}</span>
                 </label>
               );
             })}
