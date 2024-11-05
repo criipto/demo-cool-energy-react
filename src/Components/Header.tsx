@@ -21,13 +21,15 @@ function Header(props: Props) {
         window.location.pathname.includes('dashboard') ? 'dashboard-header' : ''
       }`}
     >
-      <div className="logo-group flex flex-grow-0">
-        <img
-          src="/logo-text.png"
-          alt="Cool Energy Logo"
-          className="h-10 w-[220px]"
-        />
-      </div>
+      <a href="/">
+        <div className="logo-group flex flex-grow-0">
+          <img
+            src="/logo-text.png"
+            alt="Cool Energy Logo"
+            className="h-10 w-[220px]"
+          />
+        </div>
+      </a>
       <div className="logout flex justify-end">
         {claims ? (
           <button
