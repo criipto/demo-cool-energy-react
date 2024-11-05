@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import useSearch from '../Hooks/useSearch';
 import useIsMobile from '../Hooks/useIsMobile';
+import useWalletLogin from '../Hooks/useWalletLogin';
 
 import {
   useCriiptoVerify,
@@ -10,9 +11,10 @@ import {
 import '@criipto/verify-react/dist/criipto-verify-react.css';
 
 function Login() {
-  const { isLoading, loginWithRedirect, error } = useCriiptoVerify();
+  const { isLoading, error } = useCriiptoVerify();
   const { isMobile } = useIsMobile();
   const search = useSearch();
+  const handleWalletLogin = useWalletLogin();
 
   const walletMode = search.get('wallet') !== null;
 
@@ -40,13 +42,6 @@ function Login() {
 
     return acrValues;
   }, [search, isMobile]);
-
-  function handleWalletLogin() {
-    loginWithRedirect({
-      acrValues: 'urn:authn:vc:danish_identity',
-      redirectUri: `${window.location.origin}/login/callback`,
-    });
-  }
 
   function shouldShowQr(): boolean {
     const searchParams = new URLSearchParams(window.location.search);
@@ -102,7 +97,7 @@ function Login() {
             <div className="flex flex-col gap-2 p-5 max-w-[500px]">
               <button
                 className="uppercase font-medium h-8 bg-primary flex items-center justify-center px-4 py-1.5 h-[60px] no-underline border-0 text-[14px] text-white"
-                onClick={() => handleWalletLogin()}
+                onClick={handleWalletLogin}
               >
                 Log in
               </button>

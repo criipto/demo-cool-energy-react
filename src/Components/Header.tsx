@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import Modal from './Modal';
+import useSearch from '../Hooks/useSearch';
+import useWalletLogin from '../Hooks/useWalletLogin';
 
 interface Props {
   handleLogout: () => void;
@@ -8,10 +10,13 @@ interface Props {
 
 function Header(props: Props) {
   const { handleLogout, claims } = props;
+  const search = useSearch();
+  const handleWalletLogin = useWalletLogin();
 
   const location = useLocation();
   const navigate = useNavigate();
-  const handleLogin = () => navigate('/login');
+  const walletMode = search.get('wallet') !== null;
+  const handleLogin = walletMode ? () => handleWalletLogin() : () => navigate('/login');
 
   let mql = window.matchMedia('(min-width: 1024px)');
 
@@ -41,6 +46,7 @@ function Header(props: Props) {
           </button>
         ) : (
           <>
+            {location.pathname !== '/dashboard' && <Modal />}
             {location.pathname === '/' && mql.matches && (
               <button
                 onClick={() => handleLogin()}
@@ -49,7 +55,6 @@ function Header(props: Props) {
                 Log In
               </button>
             )}
-            {location.pathname === '/login' && <Modal />}
           </>
         )}
       </div>
