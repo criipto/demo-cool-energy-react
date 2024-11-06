@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import useSearch from '../Hooks/useSearch';
 import useIsMobile from '../Hooks/useIsMobile';
-import {useWalletLogin} from '../Hooks/useWallet';
+import {useWalletLogin, useWalletMode} from '../Hooks/useWallet';
 
 import {
   useCriiptoVerify,
@@ -16,7 +16,7 @@ function Login() {
   const search = useSearch();
   const handleWalletLogin = useWalletLogin();
 
-  const walletMode = search.get('wallet') !== null;
+  const walletMode = useWalletMode();
 
   const acrValues = useMemo(() => {
     let acrValues: string[] = [];

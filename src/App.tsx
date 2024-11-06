@@ -5,7 +5,7 @@ import Dashboard from './Components/Dashboard';
 import Header from './Components/Header';
 import Login from './Components/Login';
 import HomeDesktop from './Components/HomeDesktop';
-import Loading from './Components/Loading';
+import Loading from './Components/LoginCallback';
 import { useWalletMode } from './Hooks/useWallet';
 import './App.css';
 
@@ -13,7 +13,6 @@ function App() {
   const { claims, logout } = useCriiptoVerify();
   let mql = window.matchMedia('(min-width: 1024px)');
   const walletMode = useWalletMode();
-
 
   const handleLogout = () => {
     logout({ redirectUri: walletMode ? `${window.location.origin}/?wallet=true` : window.location.origin });

@@ -47,7 +47,7 @@ export default function Modal() {
   const walletMode = useWalletMode();
 
   useEffect(() => {
-    if (walletMode === 'true') {
+    if (walletMode) {
       searchParams.set('wallet', 'true');
       setSearchParams(searchParams);
     }
@@ -55,7 +55,7 @@ export default function Modal() {
 
   const handleWalletToggle = () => {
     setSearchParams((params) => {
-      if (walletMode === 'true') {
+      if (walletMode) {
         params.delete('wallet');
       } else {
         params.set('wallet', 'true');
@@ -124,7 +124,7 @@ export default function Modal() {
                     id="wallet-toggle" 
                     label="Wallet mode" 
                     color="indigo" 
-                    checked={walletMode === 'true'} 
+                    checked={walletMode} 
                     onChange={handleWalletToggle} 
                   />
                 </div>
@@ -157,7 +157,7 @@ export default function Modal() {
         <Switch
           id="wallet-toggle"
           color="indigo"
-          checked={walletMode === 'true'} 
+          checked={walletMode} 
           onChange={handleWalletToggle}
           label={<span className="text-primary font-semibold cursor-pointer">Wallet mode</span>}
         />
