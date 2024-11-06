@@ -6,14 +6,17 @@ import Header from './Components/Header';
 import Login from './Components/Login';
 import HomeDesktop from './Components/HomeDesktop';
 import Loading from './Components/Loading';
+import { useWalletMode } from './Hooks/useWallet';
 import './App.css';
 
 function App() {
   const { claims, logout } = useCriiptoVerify();
   let mql = window.matchMedia('(min-width: 1024px)');
+  const walletMode = useWalletMode();
+
 
   const handleLogout = () => {
-    logout({ redirectUri: window.location.origin + '/' });
+    logout({ redirectUri: walletMode ? `${window.location.origin}/?wallet=true` : window.location.origin });
   };
 
   const loginRoutes = (

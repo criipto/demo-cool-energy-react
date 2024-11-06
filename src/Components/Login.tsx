@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import useSearch from '../Hooks/useSearch';
 import useIsMobile from '../Hooks/useIsMobile';
-import useWalletLogin from '../Hooks/useWalletLogin';
+import {useWalletLogin} from '../Hooks/useWallet';
 
 import {
   useCriiptoVerify,

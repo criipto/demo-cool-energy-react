@@ -1,7 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import {useWalletLogin, useWalletMode} from '../Hooks/useWallet';
 import Modal from './Modal';
-import useSearch from '../Hooks/useSearch';
-import useWalletLogin from '../Hooks/useWalletLogin';
 
 interface Props {
   handleLogout: () => void;
@@ -10,12 +9,11 @@ interface Props {
 
 function Header(props: Props) {
   const { handleLogout, claims } = props;
-  const search = useSearch();
   const handleWalletLogin = useWalletLogin();
 
   const location = useLocation();
   const navigate = useNavigate();
-  const walletMode = search.get('wallet') !== null;
+  const walletMode = useWalletMode();
   const handleLogin = walletMode ? () => handleWalletLogin() : () => navigate('/login');
 
   let mql = window.matchMedia('(min-width: 1024px)');

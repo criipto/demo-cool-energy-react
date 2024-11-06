@@ -20,7 +20,7 @@ function CriiptoVerifyProviderWrapper() {
     <CriiptoVerifyProvider
       domain={domain}
       clientID="urn:demos:cool-energy-react"
-      redirectUri={window.location.origin + '/login'}
+      redirectUri={window.location.origin + '/login/callback'}
       sessionStore={window.sessionStorage}
       message="Log in to Cool Energy"
       scope="openid ssn address"

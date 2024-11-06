@@ -2,6 +2,7 @@ import { Fragment, useState, useEffect } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
 import useIsMobile from '../Hooks/useIsMobile';
+import { useWalletMode } from '../Hooks/useWallet';
 
 const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
 type Country = (typeof countries)[number];
@@ -43,24 +44,21 @@ export default function Modal() {
     });
   };
 
-  const walletMode = sessionStorage.getItem('wallet') || searchParams.get('wallet');
+  const walletMode = useWalletMode();
 
   useEffect(() => {
-    const walletMode = sessionStorage.getItem('wallet');
-    if (walletMode === 'true' && !searchParams.has('wallet')) {
+    if (walletMode === 'true') {
       searchParams.set('wallet', 'true');
       setSearchParams(searchParams);
     }
-  }, [searchParams, setSearchParams]);
+  }, [searchParams, setSearchParams, walletMode]);
 
   const handleWalletToggle = () => {
     setSearchParams((params) => {
       if (walletMode === 'true') {
         params.delete('wallet');
-        sessionStorage.removeItem('wallet');
       } else {
         params.set('wallet', 'true');
-        sessionStorage.setItem('wallet', 'true');
       }
       return params;
     });
