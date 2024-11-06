@@ -5,7 +5,7 @@ import Dashboard from './Components/Dashboard';
 import Header from './Components/Header';
 import Login from './Components/Login';
 import HomeDesktop from './Components/HomeDesktop';
-import Loading from './Components/LoginCallback';
+import LoginCallback from './Components/LoginCallback';
 import { useWalletMode } from './Hooks/useWallet';
 import './App.css';
 
@@ -21,7 +21,7 @@ function App() {
   const loginRoutes = (
     <>
       <Route path="/login" element={<Login />} />
-      <Route path="/login/callback" element={<Loading />} />
+      <Route path="/login/callback" element={<LoginCallback />} />
       <Route path="/dashboard" element={<Navigate to="/login" />} />
     </>
   );
@@ -34,7 +34,7 @@ function App() {
         {claims ? (
           <>
             <Route index element={<Navigate to="/dashboard" />} />
-            <Route path="/login/callback" element={<Loading />} />
+            <Route path="/login/callback" element={<LoginCallback />} />
             <Route path="/login" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard claims={claims} />} />
           </>
