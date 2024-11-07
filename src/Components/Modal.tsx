@@ -16,7 +16,6 @@ export default function Modal() {
   const environment = searchParams.get('environment') ?? 'test';
 
   const qr = searchParams.get('qr');
-  let mql = window.matchMedia('(min-width: 1024px)');
 
   const enabledCountries = countries.filter(
     (country) => searchParams.get(country) !== null
@@ -81,7 +80,7 @@ export default function Modal() {
 
   return (
     <Fragment>
-      {location.pathname === '/login' ? (
+      {location.pathname === '/' || '/login' ? (
         <>
           <Button
             onClick={handleOpen}
@@ -109,7 +108,7 @@ export default function Modal() {
                     onChange={handleToggleEnv}
                   />
                 </div>
-                {!isMobile && (
+                {!isMobile && location.pathname === '/login' && (
                   <div className="m-2">
                     <Switch
                       id="qr-toggle"
@@ -130,38 +129,30 @@ export default function Modal() {
                   />
                 </div>
               </div>
-              <div className="checkbox-wrapper flex flex-col m-2">
-                {countries.map((country) => {
-                  const countryName = country.charAt(0).toUpperCase() + country.slice(1);
-                  return (
-                    <label
-                      className="m-2 font-semibold text-darkText h-6 text-l"
-                      key={country}
-                    >
-                      <input
-                        type="checkbox"
-                        className={`w-5 ${walletMode ? 'bg-gray-200 cursor-not-allowed opacity-50' : ''}`}
-                        checked={enabledCountries.includes(country)}
-                        onChange={() => {
-                          handleCountry(country);
-                        }}
-                      />
-                      <span className={`pl-2 pb-4 ${walletMode ? 'opacity-50' : ''}`}>{countryName}</span>
-                    </label>
-                  );
-                })}
-              </div>
+              {location.pathname === '/login' && (
+                <div className="checkbox-wrapper flex flex-col m-2">
+                  {countries.map((country) => {
+                    const countryName = country.charAt(0).toUpperCase() + country.slice(1);
+                    return (
+                      <label className="m-2 font-semibold text-darkText h-6 text-l" key={country}>
+                        <input
+                          type="checkbox"
+                          className={`w-5 ${walletMode ? 'bg-gray-200 cursor-not-allowed opacity-50' : ''}`}
+                          checked={enabledCountries.includes(country)}
+                          onChange={() => {
+                            handleCountry(country);
+                          }}
+                          disabled={walletMode}
+                        />
+                        <span className={`pl-2 pb-4 ${walletMode ? 'opacity-50' : ''}`}>{countryName}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              )}
             </DialogBody>
           </Dialog>
         </>
-      ) : location.pathname === '/' && mql.matches ? (
-        <Switch
-          id="wallet-toggle"
-          color="indigo"
-          checked={walletMode} 
-          onChange={handleWalletToggle}
-          label={<span className="text-primary font-semibold cursor-pointer">Wallet mode</span>}
-        />
       ) : null}
     </Fragment>
   );
