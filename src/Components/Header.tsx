@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
+import {useWalletLogin, useWalletMode} from '../Hooks/useWallet';
 import Modal from './Modal';
 
 interface Props {
@@ -8,10 +9,12 @@ interface Props {
 
 function Header(props: Props) {
   const { handleLogout, claims } = props;
+  const handleWalletLogin = useWalletLogin();
 
   const location = useLocation();
   const navigate = useNavigate();
-  const handleLogin = () => navigate('/login');
+  const walletMode = useWalletMode();
+  const handleLogin = walletMode ? () => handleWalletLogin() : () => navigate('/login');
 
   let mql = window.matchMedia('(min-width: 1024px)');
 
@@ -21,13 +24,15 @@ function Header(props: Props) {
         window.location.pathname.includes('dashboard') ? 'dashboard-header' : ''
       }`}
     >
-      <div className="logo-group flex flex-grow-0">
-        <img
-          src="/logo-text.png"
-          alt="Cool Energy Logo"
-          className="h-10 w-[220px]"
-        />
-      </div>
+      <a href={walletMode ? "/?wallet=true" : "/"}>
+        <div className="logo-group flex flex-grow-0">
+          <img
+            src="/logo-text.png"
+            alt="Cool Energy Logo"
+            className="h-10 w-[220px]"
+          />
+        </div>
+      </a>
       <div className="logout flex justify-end">
         {claims ? (
           <button
@@ -39,6 +44,7 @@ function Header(props: Props) {
           </button>
         ) : (
           <>
+            {location.pathname !== '/dashboard' && <Modal />}
             {location.pathname === '/' && mql.matches && (
               <button
                 onClick={() => handleLogin()}
@@ -47,7 +53,6 @@ function Header(props: Props) {
                 Log In
               </button>
             )}
-            {location.pathname === '/login' && <Modal />}
           </>
         )}
       </div>
