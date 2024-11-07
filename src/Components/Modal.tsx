@@ -16,6 +16,7 @@ export default function Modal() {
   const environment = searchParams.get('environment') ?? 'test';
 
   const qr = searchParams.get('qr');
+  let mql = window.matchMedia('(min-width: 1024px)');
 
   const enabledCountries = countries.filter(
     (country) => searchParams.get(country) !== null
@@ -153,7 +154,7 @@ export default function Modal() {
             </DialogBody>
           </Dialog>
         </>
-      ) : location.pathname === '/' ? (
+      ) : location.pathname === '/' && mql.matches ? (
         <Switch
           id="wallet-toggle"
           color="indigo"
