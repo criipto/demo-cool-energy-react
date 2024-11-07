@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import {useWalletLogin, useWalletMode} from '../Hooks/useWallet';
 import Modal from './Modal';
 
@@ -11,10 +11,12 @@ function Header(props: Props) {
   const { handleLogout, claims } = props;
   const handleWalletLogin = useWalletLogin();
 
+  const [searchParams] = useSearchParams();
+  const isProduction = searchParams.get('environment') === 'production';
   const location = useLocation();
   const navigate = useNavigate();
   const walletMode = useWalletMode();
-  const handleLogin = walletMode ? () => handleWalletLogin() : () => navigate('/login');
+  const handleLogin = walletMode ? () => handleWalletLogin() : () => navigate(isProduction ? '/login?environment=production' : '/login');
 
   let mql = window.matchMedia('(min-width: 1024px)');
 
@@ -24,7 +26,7 @@ function Header(props: Props) {
         window.location.pathname.includes('dashboard') ? 'dashboard-header' : ''
       }`}
     >
-      <a href={walletMode ? "/?wallet=true" : "/"}>
+      <a href={`${walletMode ? "/?wallet=true" : "/"}${isProduction ? '&environment=production' : ''}`}>
         <div className="logo-group flex flex-grow-0">
           <img
             src="/logo-text.png"
