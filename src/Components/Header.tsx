@@ -24,7 +24,7 @@ function Header(props: Props) {
         window.location.pathname.includes('dashboard') ? 'dashboard-header' : ''
       }`}
     >
-      <a href="/">
+      <a href={walletMode ? "/?wallet=true" : "/"}>
         <div className="logo-group flex flex-grow-0">
           <img
             src="/logo-text.png"
