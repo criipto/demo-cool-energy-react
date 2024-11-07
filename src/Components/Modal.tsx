@@ -149,7 +149,7 @@ export default function Modal() {
                     );
                   })}
                 </div>
-              )};
+              )}
             </DialogBody>
           </Dialog>
         </>
