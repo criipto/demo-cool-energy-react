@@ -107,7 +107,7 @@ function Login() {
           )}
           {!isMobile && showQr && !isOnlySwedenSelected && (
             <div className="qrBox">
-              <QRCode margin={3}>
+              <QRCode margin={3} acrValues={acrValues.length ? acrValues : walletMode ? ['urn:authn:vc:danish_identity'] : undefined} >
                 {({
                   qrElement,
                   isAcknowledged,
