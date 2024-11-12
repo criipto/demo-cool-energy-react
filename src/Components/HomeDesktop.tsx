@@ -1,4 +1,12 @@
+import QR from './QR';
+import { useWalletMode } from '../Hooks/useWallet';
+import useSearch from '../Hooks/useSearch';
+
 function Home() {
+  const walletMode = useWalletMode();
+  const search = useSearch();
+  const showQr = search.get('qr') && walletMode;
+
   const newsContent =
     'Lorem ipsum dolor sit amet consectetur. Nam aenean cursus placerat habitasse duis massa id sagittis curabitur. Dapibus sed auctor sed lectus erat nec quam.';
 
@@ -6,10 +14,11 @@ function Home() {
 
   return (
     <>
-      <div className="flex items-top justify-start mt-4 bg-contain bg-hero bg-center bg-no-repeat h-60 h-96">
+      <div className="flex items-top justify-between mt-4 bg-contain bg-hero bg-center bg-no-repeat h-60 h-96">
         <h1 className="text-5xl font-medium mt-16 w-[868px] ml-10 leading-[60px]">
           Cool Energy named one of the world's most sustainable energy companies
         </h1>
+        {showQr && <QR margin={3} acrValues={['urn:authn:vc:danish_identity']} />}
       </div>
       <div className="flex mb-4 justify-center align-center content-start">
         {newsHeadings.map((heading) => (
