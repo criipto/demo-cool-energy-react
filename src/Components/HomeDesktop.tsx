@@ -1,14 +1,11 @@
-import { useMemo } from 'react';
 import QR from './QR';
 import { useWalletMode } from '../Hooks/useWallet';
+import useSearch from '../Hooks/useSearch';
 
 function Home() {
   const walletMode = useWalletMode();
-
-  const showQr = useMemo(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.has('qr') && walletMode;
-  }, [walletMode,  window.location.search]); 
+  const search = useSearch();
+  const showQr = search.get('qr') && walletMode;
 
   const newsContent =
     'Lorem ipsum dolor sit amet consectetur. Nam aenean cursus placerat habitasse duis massa id sagittis curabitur. Dapibus sed auctor sed lectus erat nec quam.';
