@@ -57,9 +57,17 @@ export default function Modal() {
     setSearchParams((params) => {
       if (walletMode) {
         params.delete('wallet');
+        // Delete qr params when wallet mode is enabled on homepage
+        if (location.pathname === '/' ){
+          params.delete('qr');
+        } 
       } else {
         params.set('wallet', 'true');
       }
+      // Clear selected countries when walletMode is enabled
+      enabledCountries.forEach((country) => {
+        params.delete(country);
+      });
       return params;
     });
   };
@@ -108,17 +116,6 @@ export default function Modal() {
                     onChange={handleToggleEnv}
                   />
                 </div>
-                {!isMobile && location.pathname === '/login' && (
-                  <div className="m-2">
-                    <Switch
-                      id="qr-toggle"
-                      label="QR code"
-                      color="indigo"
-                      checked={qr === 'true'}
-                      onChange={handleToggleQr}
-                    />
-                  </div>
-                )}
                 <div className="m-2">
                   <Switch 
                     id="wallet-toggle" 
@@ -128,6 +125,18 @@ export default function Modal() {
                     onChange={handleWalletToggle} 
                   />
                 </div>
+                {!isMobile && ((location.pathname === '/login') || (location.pathname === '/' && walletMode)) && (
+                  <div className="m-2">
+                    <Switch
+                      id="qr-toggle"
+                      label="QR code"
+                      color="indigo"
+                      checked={qr === 'true'}
+                      onChange={location.pathname === '/login' || (location.pathname === '/' && walletMode) ? handleToggleQr : undefined}
+                      disabled={location.pathname === '/' && !walletMode}
+                    />
+                  </div>
+                )}
               </div>
               {location.pathname === '/login' && (
                 <div className="checkbox-wrapper flex flex-col m-2">
