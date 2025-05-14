@@ -4,7 +4,7 @@ import { Button, Dialog, DialogBody, Switch } from '@material-tailwind/react';
 import useIsMobile from '../Hooks/useIsMobile';
 import { useWalletMode } from '../Hooks/useWallet';
 
-const countries = ['denmark', 'sweden', 'norway', 'finland'] as const;
+const countries = ['denmark', 'sweden', 'norway', 'finland', 'vipps'] as const;
 type Country = (typeof countries)[number];
 
 export default function Modal() {

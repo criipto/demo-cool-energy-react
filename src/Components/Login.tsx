@@ -36,6 +36,10 @@ function Login() {
       acrValues.push('urn:grn:authn:no:bankid:substantial');
     }
 
+    if (search.get('vipps') !== null) {
+      acrValues.push('urn:grn:authn:no:vipps');
+    }
+
     if (search.get('finland') !== null) {
       acrValues.push('urn:grn:authn:fi:all');
     }
@@ -103,7 +107,19 @@ function Login() {
               </button>
             </div>
           ) : (
-            <AuthMethodSelector acrValues={acrValues.length ? acrValues : undefined} />
+            <AuthMethodSelector
+              acrValues={
+                acrValues.length
+                  ? acrValues
+                  : [
+                      'urn:grn:authn:dk:mitid:substantial',
+                      'urn:grn:authn:no:bankid:substantial',
+                      'urn:grn:authn:no:vipps',
+                      'urn:grn:authn:se:bankid',
+                      'urn:grn:authn:itsme:basic',
+                    ]
+              }
+            />
           )}
           {!isMobile && showQr && !isOnlySwedenSelected && (
             <div className="qrBox">
