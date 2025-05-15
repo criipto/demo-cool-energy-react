@@ -24,7 +24,7 @@ function CriiptoVerifyProviderWrapper() {
       redirectUri={`${walletMode ? window.location.origin + '/login/callback?wallet=true' : window.location.origin + '/login/callback'}`}
       sessionStore={window.sessionStorage}
       message="Log in to Cool Energy"
-      scope="openid ssn address"
+      scope="openid ssn address phone"
     >
       <App />
     </CriiptoVerifyProvider>
