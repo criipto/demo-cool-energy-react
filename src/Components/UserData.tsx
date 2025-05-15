@@ -10,6 +10,8 @@ function UserData(props: Props) {
     cprNumberIdentifier,
     country,
     ssn,
+    mobilephone,
+    phone_number,
     socialno,
     family_name,
     given_name,
@@ -107,6 +109,12 @@ function UserData(props: Props) {
             {country === 'SE' && <span className="data-name">Sweden</span>}
             {country === 'NO' && <span className="data-name">Norway</span>}
             {country === 'FI' && <span className="data-name">Finland</span>}
+          </li>
+        )}
+        {(mobilephone ?? phone_number) && (
+          <li>
+            <span className="fixed-width">Phone number</span>
+            <span className="data-name">{mobilephone ?? phone_number}</span>
           </li>
         )}
       </ul>
