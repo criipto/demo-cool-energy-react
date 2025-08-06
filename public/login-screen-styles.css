@@ -7,6 +7,10 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
 }
 
+.broker {
+  background-color: #edeefb;
+}
+
 .broker .frame { 
   background: none;
 }
