@@ -116,7 +116,6 @@ function Login() {
                       'urn:grn:authn:no:bankid:substantial',
                       'urn:grn:authn:no:vipps',
                       'urn:grn:authn:se:bankid',
-                      'urn:grn:authn:itsme:basic',
                     ]
               }
             />
