@@ -103,9 +103,11 @@
   font-weight: 500;
   padding-top: 3rem;
   padding-bottom: 0.1rem;
+  background-color: #ededfb;
 }
 
 .qrBox p {
   padding-bottom: 0.5rem;
   font-size: 0.9rem;
+  background-color: #ededfb;
 }
